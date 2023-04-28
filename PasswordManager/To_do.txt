@@ -1,0 +1,3 @@
+Add the following functionality
+    - When the user adds a website, and some info already exist in the csv file, warn the user about the expected outcomes.
+    - Suggest replacing the current info, suggest showing the current info,...
