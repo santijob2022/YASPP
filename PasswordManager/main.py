@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import random
 import pyperclip
+import json
 
 FONT_NAME = "Courier"
 
@@ -29,10 +30,25 @@ def generate_password():
     pyperclip.copy(password)
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
+def open_file(file_name, mode,data=None):        
+    with open(file_name,mode) as f:
+        if mode == "r":
+            data = json.load(f) 
+            print("\n\n", type(data))
+            return data
+        if mode == "w":
+            json.dump(data,f,indent=4)
+
 def save():
     website = website_entry.get()
     email = email_entry.get()
     password = password_entry.get()
+    new_data = {
+        website: {
+            "email":email,
+            "password" : password
+        }
+    }
 
     if website == "":
         messagebox.showinfo(title="Warning:",message="Website entry is empty.")
@@ -44,12 +60,16 @@ def save():
                                                 f"Password: {password}\n"
                                                 f"is it ok to save?\n"))
         if is_ok:
-            with open("data.txt","a") as f:
-                f.write(website +",")
-                f.write(email + ",")
-                f.write(password+"\n")            
+            try:
+                old_data = open_file("data.json","r")                                                               
+            except FileNotFoundError:
+                open_file("data.json","w",new_data)
+            else:
+                old_data.update(new_data)
+                open_file("data.json","w",old_data)     
+            finally: 
                 website_entry.delete(0, END)
-                password_entry.delete(0, END)    
+                password_entry.delete(0, END)   
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
