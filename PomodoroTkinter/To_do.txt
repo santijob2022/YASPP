@@ -1,0 +1,1 @@
+Change image to a gif and background color depending on the status of the Pomodoro phase.
