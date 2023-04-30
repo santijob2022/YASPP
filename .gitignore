@@ -1,6 +1,7 @@
 SendingEmails-SMTP/mail_data.txt
 SendingEmails-SMTP/json_version
 SendingEmails-SMTP/.env
+SendingEmails-SMTP/birthdays.csv
 
 Detecting-ISS/background.png
 Detecting-ISS/kanye.png
