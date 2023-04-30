@@ -2,10 +2,14 @@ import datetime as dt
 import pandas as pd
 import smtplib
 import random
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def send_email(content):
-    my_email = "add_email"
-    password = "add_email_password"
+    my_email = os.environ["email"]
+    password = os.environ["email_password"]
     with smtplib.SMTP_SSL("smtp.gmail.com",465) as connection:
     # yahoo -> smtp.mail.yahoo.com # hotmail -> smtp.live.com        
         connection.login(user=my_email, password=password)
@@ -25,7 +29,8 @@ def check_birthday(today_date):
                 content = file.read()
                 if "NAME" in content:                    
                     content = content.replace("[NAME]",row[0])
-                print(content)
+                #print(content)
+                send_email(content)
 
 def get_today_date():
     day = dt.datetime.now().day
