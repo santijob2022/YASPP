@@ -3,6 +3,10 @@ from tkinter import messagebox
 import random
 import pyperclip
 import json
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 FONT_NAME = "Courier"
 
@@ -130,7 +134,7 @@ website_entry.grid(row=1, column=1)
 website_entry.focus()
 email_entry = Entry(width=52)
 email_entry.grid(row=2, column=1, columnspan=2)
-email_entry.insert(0,"santi.job.2022@gmail.com")
+email_entry.insert(0,os.environ["starting_email"])
 password_entry = Entry(width=32)
 password_entry.grid(row=3, column=1)
 
