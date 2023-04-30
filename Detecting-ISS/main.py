@@ -6,24 +6,50 @@
 
     The sunrise-sunset API is “Powered by SunriseSunset.io“.
 """
+import os
+from twilio.rest import Client
+
+from dotenv import load_dotenv # for environment variables
 
 import requests
 import smtplib
 from datetime import datetime
-import time
+#import time
 
 # Approximate Location. Center of Mexico.
 MY_LAT = 20.60985 
 MY_LNG = -100.3626
 
+load_dotenv()
+# print(os.environ["vonage_api"])
+
+################## SEND SMS ALERT ##################
+def send_sms():
+# Download the helper library from https://www.twilio.com/docs/python/install
+# Find your Account SID and Auth Token at twilio.com/console
+# and set the environment variables. See http://twil.io/secure
+    account_sid = os.environ["twilio_account_sid"]
+    auth_token = os.environ["twilio_auth_token"]
+    client = Client(account_sid, auth_token)
+
+    message = client.messages \
+                    .create(
+                        body="The SSI is near you and there is light. Look up at the sky!",
+                        from_= os.environ["twilio_from_phone"],                        
+                        to=os.environ["to_my_phone"],
+                    )
+
+    print(message.sid)
 
 ################## SEND EMAIL ALERT ##################
 def send_email():
 
     """ Send notification to see the ISS. """
 
-    my_email = "add_email"
-    password = "add_email_password"
+    # You may need an apps password for your email account.
+    # Manage your account to get one.
+    my_email = os.environ["email"]
+    password = os.environ["email_password"]
     with smtplib.SMTP_SSL("smtp.gmail.com",465) as connection:
     # yahoo -> smtp.mail.yahoo.com # hotmail -> smtp.live.com        
         connection.login(user=my_email, password=password)
@@ -118,11 +144,12 @@ def sunrise_sunset_API_CALL():
     
 ################ MAIN ################
 
-while True:
-    time.sleep(300)
-    if is_ISS_near() and is_there_sunlight():
-        send_email()
-
+# while True:
+#     time.sleep(300)
+#     if is_ISS_near() and is_there_sunlight():
+#         send_email()
+#         send_sms()
+send_sms()
 
 ############################################################
 
