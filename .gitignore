@@ -1,2 +1,8 @@
 SendingEmails-SMTP/mail_data.txt
 SendingEmails-SMTP/json_version
+SendingEmails-SMTP/.env
+
+Detecting-ISS/background.png
+Detecting-ISS/kanye.png
+Detecting-ISS/kayne_main.py
+Detecting-ISS/.env
