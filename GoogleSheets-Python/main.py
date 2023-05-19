@@ -1,3 +1,7 @@
+"""
+	This program uses Sheety to modify Googlesheets files
+"""
+
 import requests
 from dotenv import load_dotenv
 import os
